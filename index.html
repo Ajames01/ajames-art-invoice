@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ajames Art — Invoice Generator</title>
+<title>A.James Art - Invoice</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -409,9 +409,18 @@
   .info-box strong { color: var(--gold); }
 
   @media print {
+    @page {
+      margin: 1.5cm;
+      size: A4;
+    }
     body { background: #fff; }
     .app-header, .action-bar, .form-sections { display: none; }
-    #invoicePreview { display: block !important; box-shadow: none; }
+    #invoicePreview {
+      display: block !important;
+      box-shadow: none;
+      margin: 0;
+      padding: 0;
+    }
   }
 
   @media (max-width: 600px) {
@@ -766,8 +775,8 @@ function renderInvoice(d) {
       </div>
       <div class="inv-meta-col">
         <h3>From</h3>
-        <p><strong>A.James Art</strong></p>
-        <p>ajamesart1@gmail.com</p>
+        <p><strong>Ajames Art</strong></p>
+        <p>ajamesart@gmail.com</p>
       </div>
       <div class="inv-meta-col" style="text-align:right">
         <div class="inv-date-info">
@@ -814,7 +823,7 @@ function renderInvoice(d) {
         <span>₦${fmt(d.deposit)}</span>
       </div>
       <div class="inv-total-row balance">
-        <span>Balance Due</span>
+        <span>Payment Balance</span>
         <span>₦${fmt(balance)}</span>
       </div>
     </div>
@@ -823,11 +832,12 @@ function renderInvoice(d) {
       <div class="inv-footer-note">
         <p><strong>Payment Terms:</strong> Balance is due upon delivery.</p>
         ${d.notes ? `<p style="margin-top:0.5rem"><em>${d.notes}</em></p>` : ''}
-        <p style="margin-top:0.5rem">Thank you for your patronage. We appreciate your trust in A.James Art.</p>
+        <p style="margin-top:0.5rem">Thank you for your patronage. We appreciate your trust in Ajames Art.</p>
       </div>
       <div class="inv-footer-brand">
-        <div style="font-size:1rem;font-weight:700;">A.James Art</div>
+        <div style="font-size:1rem;font-weight:700;">Ajames Art</div>
         <div style="font-size:0.75rem;color:#aaa;">Hyper-Realistic Portraits</div>
+        <div style="font-size:0.75rem;margin-top:0.3rem;"><a href="https://www.tiktok.com/@ajamesart1" style="color:#555;text-decoration:none;">tiktok.com/@ajamesart1</a></div>
       </div>
     </div>
   `;
@@ -844,7 +854,10 @@ function downloadInvoice() {
     alert('Please generate an invoice first.');
     return;
   }
+  const original = document.title;
+  document.title = 'A.James Art - Invoice';
   window.print();
+  document.title = original;
 }
 
 // Set today's date as default
